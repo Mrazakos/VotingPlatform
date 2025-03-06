@@ -4,6 +4,8 @@ import {VotingCardComponent} from '../voting-card/voting-card.component'
 import { VotingCard } from '../voting-card/model/voting-card';
 import { VotingType } from '../models/voting-type';
 import { CommonModule } from '@angular/common';
+import { VotingCardService } from '../services/voting-card.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +16,15 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class DashboardComponent {
-  votingCards: VotingCard[] = []
-  constructor(private authService: AuthService) {
-    this.votingCards.push({ votingCardId: 1, title: "Teszt", description:"Ez egy teszt kártya", options: [{option: "asd", votes: 3}, {option: "test", votes: 7}], type: VotingType.election})
-    console.log(this.votingCards)
+
+  votingCards$!: Observable<VotingCard[]>;
+
+  constructor(private votingCardService: VotingCardService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.votingCards$ = this.votingCardService.getVotingCards();
   }
 
   onLogout(): void {

@@ -12,10 +12,10 @@
 .sidebar-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1 rem;
 }
 
-.logo {
+#logo {
   width: 100px;
   height: auto;
   margin: 0 auto;
@@ -43,8 +43,10 @@ a:hover {
   color: #4a154b; 
 }
 
-.logout-btn{
+.logout-btn {
   cursor: pointer;
-  margin-top: auto;
-  align-self: flex-end;
+}
+
+.bottom{
+  justify-content: flex-end;
 }

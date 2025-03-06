@@ -1,6 +1,6 @@
 <mat-card class="voting-card">
   <div class="grid-layout">
-    <img [src]="imageSrc" alt="Voting Image" class="voting-image" />
+    <img [src]="votingCard.imageSrc" alt="Voting Image" class="voting-image" />
     <div class="text-content">
       <h3>{{ votingCard.title }}</h3>
       <p>{{ votingCard.description }}</p>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="vote-options">
-    <div *ngFor="let option of votingCard.options" class="option">
+    <div *ngFor="let option of votingCard?.options" class="option">
       <span class="option-text">{{ option.option }}</span>
       <span class="vote-count">{{ option.votes }} votes</span>
       <div class="vote-bar">

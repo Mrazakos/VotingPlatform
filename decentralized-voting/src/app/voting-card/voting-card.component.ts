@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -30,19 +30,9 @@ import { VotingCard } from './model/voting-card';
 })
 
 export class VotingCardComponent {
-  @Input() votingCard!: VotingCard;
-    title = 'Best Movie of the Year';
-    description = 'Vote for your favorite movie from the list below!';
-    imageSrc = 'assets/voting-movie.jpg';
-    voteId = 1;
-  
-    voteOptions = [
-      { name: 'Movie A', votes: 30 },
-      { name: 'Movie B', votes: 70 },
-      { name: 'Movie C', votes: 50 },
-    ];
-  
-    get totalVotes(): number {
-      return this.voteOptions.reduce((sum, option) => sum + option.votes, 0);
-    }
+  @Input() votingCard!: VotingCard; 
+
+  get totalVotes(): number {
+    return this.votingCard?.options?.reduce((sum, option) => sum + option.votes, 0) || 0;
   }
+}
