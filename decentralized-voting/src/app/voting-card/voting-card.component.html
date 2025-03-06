@@ -1,0 +1,26 @@
+<mat-card class="voting-card">
+  <div class="grid-layout">
+    <img [src]="imageSrc" alt="Voting Image" class="voting-image" />
+    <div class="text-content">
+      <h3>{{ votingCard.title }}</h3>
+      <p>{{ votingCard.description }}</p>
+    </div>
+  </div>
+
+  <div class="vote-options">
+    <div *ngFor="let option of votingCard.options" class="option">
+      <span class="option-text">{{ option.option }}</span>
+      <span class="vote-count">{{ option.votes }} votes</span>
+      <div class="vote-bar">
+        <div
+          class="vote-bar-fill"
+          [style.width.%]="(option.votes / totalVotes) * 100"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" routerLink="/vote/{{ votingCard.votingCardId }}">
+    Vote Now
+  </button>
+</mat-card>

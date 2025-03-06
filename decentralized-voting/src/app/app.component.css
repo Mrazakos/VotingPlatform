@@ -1,0 +1,50 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 280px;
+  background-color: #e91e63; /* Dark theme */
+  color: white;
+  padding: 1rem;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.main-content {
+  padding: 2rem;
+  background-color: #fef6f9; /* Light rose background for the app */
+  color: #4a154b; 
+}
+
+.logout-btn{
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-end;
+}

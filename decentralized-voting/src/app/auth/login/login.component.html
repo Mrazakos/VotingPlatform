@@ -1,0 +1,18 @@
+<mat-card class="auth-card">
+  <h2 class="text-center">Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email" type="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" name="password" type="password" required />
+    </mat-form-field>
+
+    <button class="auth-button" [disabled]="!loginForm.valid" mat-raised-button color="accent" type="submit">Login</button>
+  </form>
+
+  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+</mat-card>

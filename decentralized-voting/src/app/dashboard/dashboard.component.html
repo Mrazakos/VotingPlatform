@@ -1,0 +1,7 @@
+<h1> Decide Together – Your Voice, Your Vote!</h1>
+<h4>Welcome to Decide Together, the platform where your opinion matters! Explore active polls, see real-time results, and cast your vote on topics that interest you. Engage in meaningful discussions and shape decisions with the community. Let’s vote, decide, and create impact—together! 🚀</h4>
+<div *ngFor="let card of votingCards">
+  <app-voting-card 
+    [votingCard]="card">
+  </app-voting-card>
+</div>
