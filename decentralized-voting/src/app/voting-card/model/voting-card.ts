@@ -3,7 +3,6 @@ import { VotingType } from "../../models/voting-type";
 
 export interface VotingCard{
   id?: string; 
-  votingCardId: number;
   title: string;
   description: string;
   type: VotingType;

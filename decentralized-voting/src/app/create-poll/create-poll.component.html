@@ -1,1 +1,38 @@
-<p>create-poll works!</p>
+<div class="create-poll-container">
+  <h2>Create New Poll</h2>
+
+  <form (ngSubmit)="onSubmit()" #pollForm="ngForm">
+    
+    <!-- Title -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Poll Title</mat-label>
+      <input matInput [(ngModel)]="newVotingCard.title" name="title" required #title="ngModel">
+      <mat-error *ngIf="title.invalid && title.touched">Poll Title is required</mat-error>
+    </mat-form-field>
+
+    <!-- Description -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput [(ngModel)]="newVotingCard.description" name="description" required #description="ngModel">
+      <mat-error *ngIf="description.invalid && description.touched">Description is required</mat-error>
+    </mat-form-field>
+
+    <!-- Image URL -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Image URL</mat-label>
+      <input matInput [(ngModel)]="newVotingCard.imageSrc" name="imageSrc" #imageSrc="ngModel">
+    </mat-form-field>
+
+    <!-- Poll Options -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Poll Options (comma-separated)</mat-label>
+      <input matInput [(ngModel)]="newVotingCard.options" name="options" required #options="ngModel">
+      <mat-error *ngIf="options.invalid && options.touched">At least one option is required</mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="pollForm.invalid">
+      Create Poll
+    </button>
+  </form>
+</div>
