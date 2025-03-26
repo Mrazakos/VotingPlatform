@@ -8,7 +8,7 @@ import { CreatePollComponent } from "./create-poll/create-poll.component";
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
-  { path: 'add-poll', component: CreatePollComponent, canActivate:[AuthGuard]},
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'add-poll', component: CreatePollComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

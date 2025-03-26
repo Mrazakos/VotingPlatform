@@ -17,18 +17,18 @@ import { RouterModule } from '@angular/router';
   selector: 'app-create-poll',
   templateUrl: './create-poll.component.html',
   imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatCardModule,
-      MatIconModule,
-      RouterModule,
-   ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterModule,
+  ],
   styles: ['src/styles'],
-  styleUrls: ['./create-poll.component.css']
+  styleUrls: ['./create-poll.component.css'],
 })
 export class CreatePollComponent {
   public get votingCardService(): VotingCardService {
@@ -37,33 +37,41 @@ export class CreatePollComponent {
   public set votingCardService(value: VotingCardService) {
     this._votingCardService = value;
   }
+  options: string = '';
   newVotingCard: VotingCard = {
     title: '',
     description: '',
     imageSrc: '',
     type: VotingType.poll,
-    options: [] // Make sure options is an empty array at first
+    options: [],
   };
 
   constructor(private _votingCardService: VotingCardService) {}
-  
 
-  onSubmit() {
-    // Split options and initialize with 0 votes
-    const optionsArray = this.newVotingCard.options
-      .map(option => option.trim())
-      .map(option => ({ option, votes: 0 })); // Initialize votes to 0
-
-    // Set the options in the VotingCard object
-    this.newVotingCard.options = optionsArray as OptionVotePair[];
-
-    // Call the service to add the new VotingCard
-    this.votingCardService.addVotingCard(this.newVotingCard).then(() => {
-      console.log('New voting card created!');
-      // Reset the form after successful submission
-      this.newVotingCard = { title: '', description: '', imageSrc: '', options: [], type: VotingType.default};
-    }).catch((error) => {
-      console.error('Error creating voting card:', error);
+  onSubmit(): void {
+    this.initializeOptions(this.options);
+    this.votingCardService
+      .addVotingCard(this.newVotingCard)
+      .then(() => {
+        console.log('New voting card created!');
+        this.newVotingCard = {
+          title: '',
+          description: '',
+          imageSrc: '',
+          options: [],
+          type: VotingType.default,
+        };
+        this.options = '';
+      })
+      .catch(error => {
+        console.error('Error creating voting card:', error);
+      });
+  }
+  private initializeOptions(options: string) {
+    const optionsArray = options.split(',');
+    optionsArray.forEach(element => {
+      let option = { option: element.trim(), votes: 0 } as OptionVotePair;
+      this.newVotingCard.options.push(option);
     });
   }
 }

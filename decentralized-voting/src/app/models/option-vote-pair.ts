@@ -1,5 +1,4 @@
-export interface OptionVotePair{
-  trim(): any;
+export interface OptionVotePair {
   option: string;
   votes: number;
 }

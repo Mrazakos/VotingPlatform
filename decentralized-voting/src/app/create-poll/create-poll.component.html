@@ -26,7 +26,7 @@
     <!-- Poll Options -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Poll Options (comma-separated)</mat-label>
-      <input matInput [(ngModel)]="newVotingCard.options" name="options" required #options="ngModel">
+      <input matInput (ngModel)="options" name="options" required #options="ngModel">
       <mat-error *ngIf="options.invalid && options.touched">At least one option is required</mat-error>
     </mat-form-field>
 

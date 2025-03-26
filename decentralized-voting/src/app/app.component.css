@@ -1,18 +1,22 @@
 .sidenav-container {
   height: 100vh;
+  width: 100%;
+  display: flex;
 }
 
 .sidenav {
   width: 280px;
-  background-color: #e91e63; /* Dark theme */
+  background-color: #e91e63;
   color: white;
   padding: 1rem;
+  flex-shrink: 0; /* Prevents shrinking */
 }
 
 .sidebar-content {
   display: flex;
   flex-direction: column;
-  gap: 1 rem;
+  height: 100%; /* Ensure it fills the height */
+  gap: 1rem;
 }
 
 #logo {
@@ -30,6 +34,7 @@ nav {
 a {
   color: white;
   text-decoration: none;
+  padding: 0.5rem;
 }
 
 a:hover {
@@ -38,15 +43,41 @@ a:hover {
 }
 
 .main-content {
+  flex-grow: 1;  /* Allows main content to take the remaining space */
+  overflow-y: auto; /* Enables scrolling */
+  height: 100vh;
   padding: 2rem;
-  background-color: #fef6f9; /* Light rose background for the app */
-  color: #4a154b; 
+  display: flex;
+  flex-direction: column;
+  background-color: #fef6f9;
+  color: #4a154b;
+}
+
+.toolbar {
+  background: #e91e63;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 64px;
+  margin-bottom: 1rem;
+}
+
+.toolbar button {
+  margin-right: 16px;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .logout-btn {
   cursor: pointer;
 }
 
-.bottom{
+.bottom {
+  margin-top: auto; /* Push logout to the bottom */
+  display: flex;
   justify-content: flex-end;
 }
