@@ -1,0 +1,25 @@
+<div class="voting-container">
+  <h2>Cast your vote!</h2>
+  <div class="options-container">
+    <mat-card
+      class="option"
+      *ngFor="let option of options"
+      (click)="selectOption(option)"
+      [class.selected]="option.option === selectedOption"
+    >
+      <h3 class="option-name">{{ option.option }}</h3>
+      <div class="option-votes">
+        <p>{{ option.votes }}</p>
+        <div class="vote-bar-fill" [style.width.%]="(option.votes / totalVotes) * 100"></div>
+      </div>
+    </mat-card>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="!selectedOption || this.alreadyVoted"
+  >
+    Vote Now
+  </button>
+</div>

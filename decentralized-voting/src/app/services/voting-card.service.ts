@@ -8,8 +8,9 @@ import {
   setDoc,
   deleteDoc,
   docData,
+  getDoc,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
 
 @Injectable({
@@ -23,9 +24,11 @@ export class VotingCardService {
     return collectionData(votingCardsCollection, { idField: 'id' }) as Observable<VotingCard[]>;
   }
 
-  getVotingCardById(id: string): Observable<VotingCard> {
-    const votingCardDoc = doc(this.firestore, `VotingCards/${id}`);
-    return docData(votingCardDoc, { idField: 'id' }) as Observable<VotingCard>;
+  getVotingCardById(id: string): Observable<VotingCard | null> {
+    const docRef = doc(this.firestore, 'VotingCards', id);
+    return docData(docRef, { idField: 'id' }).pipe(
+      map(data => (data ? (data as VotingCard) : null)) // Return null if no data
+    );
   }
 
   addVotingCard(votingCard: VotingCard) {

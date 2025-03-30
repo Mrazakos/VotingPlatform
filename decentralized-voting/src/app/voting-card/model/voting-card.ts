@@ -1,5 +1,6 @@
 import { OptionVotePair } from "../../models/option-vote-pair";
-import { VotingType } from "../../models/voting-type";
+import { Vote } from '../../models/vote';
+import { VotingType } from '../../models/voting-type';
 
 export interface VotingCard {
   id?: string;
@@ -8,4 +9,5 @@ export interface VotingCard {
   type: VotingType;
   imageSrc: string;
   options: OptionVotePair[];
+  votes: Vote[];
 }

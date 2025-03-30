@@ -42,6 +42,7 @@ export class CreatePollComponent {
     title: '',
     description: '',
     imageSrc: '',
+    votes: [],
     type: VotingType.poll,
     options: [],
   };
@@ -59,6 +60,7 @@ export class CreatePollComponent {
           description: '',
           imageSrc: '',
           options: [],
+          votes: [],
           type: VotingType.default,
         };
         this.options = '';
@@ -69,6 +71,7 @@ export class CreatePollComponent {
   }
   private initializeOptions(options: string) {
     const optionsArray = options.split(',');
+    console.log(optionsArray);
     optionsArray.forEach(element => {
       let option = { option: element.trim(), votes: 0 } as OptionVotePair;
       this.newVotingCard.options.push(option);

@@ -1,0 +1,16 @@
+<app-search-component (searchChanged)="searchChanged($event)"></app-search-component>
+
+<div class="poll-list">
+  <app-voting-card
+    *ngFor="let votingCard of votingCards$ | async"
+    [votingCard]="votingCard"
+  ></app-voting-card>
+</div>
+
+<mat-paginator
+  [length]="filteredCards().length"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="[3, 5, 10]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>

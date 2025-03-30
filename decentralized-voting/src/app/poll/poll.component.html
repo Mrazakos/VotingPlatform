@@ -1,1 +1,27 @@
-<p>poll works!</p>,
+<mat-card *ngIf="(pollData$ | async) as pollData; else noData">
+  <div class="grid-layout">
+    
+    <div class="poll-text">
+      <img [src]="pollData.imageSrc" alt="Voting Image" class="voting-image" />
+      <div class="title">
+        <h3>{{ pollData.title }}</h3>
+        <div class="text-content">
+          <p>{{ pollData.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-voting
+  [options]="pollData.options"
+  [votingCardId]="pollData.id"
+  [userId]="userId"
+  [votes]="pollData.votes"
+  (addVote)="vote($event)"
+  >
+
+  </app-voting>
+</mat-card>
+
+<ng-template #noData>
+  <p>No poll data found.</p>
+</ng-template>
