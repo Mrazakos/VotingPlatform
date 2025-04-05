@@ -1,7 +1,12 @@
 <h1> Decide Together – Your Voice, Your Vote!</h1>
 <h4>Welcome to Decide Together, the platform where your opinion matters! Explore active polls, see real-time results, and cast your vote on topics that interest you. Engage in meaningful discussions and shape decisions with the community. Let’s vote, decide, and create impact—together! 🚀</h4>
-<div *ngFor="let card of (votingCards$ | async)">
-  <app-voting-card 
-    [votingCard]="card">
-  </app-voting-card>
-</div>
+
+<mat-card>
+  <h2 class="carousel-title">Here you can find our most viral polls!</h2>
+  <!-- PrimeNG Carousel -->
+  <p-carousel [value]="(votingCards$ | async) || []" [numVisible]="numVisibleCards" [numScroll]="1" [circular]="true" [autoplayInterval]="5000" [style]="{'width': '100%', 'height': '400px'}">
+    <ng-template pTemplate="item" let-card>
+      <app-voting-card [votingCard]="card"></app-voting-card>
+    </ng-template>
+  </p-carousel>
+</mat-card>
