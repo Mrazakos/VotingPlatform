@@ -17,10 +17,22 @@
       <mat-error *ngIf="description.invalid && description.touched">Description is required</mat-error>
     </mat-form-field>
 
-    <!-- Image URL -->
+    <!-- Poll Type -->
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Image URL</mat-label>
-      <input matInput [(ngModel)]="newVotingCard.imageSrc" name="imageSrc" #imageSrc="ngModel">
+      <mat-label>Poll Type</mat-label>
+      <mat-select [(ngModel)]="newVotingCard.type" name="type" required #type="ngModel">
+        <mat-option [value]="2">3</mat-option>
+      </mat-select>
+      <mat-error *ngIf="type.invalid && type.touched">Poll Type is required</mat-error>
+    </mat-form-field>
+
+    <!-- Poll Duration -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Poll Duration (in days)</mat-label>
+      <input matInput [matDatepicker]="picker" name="activeUntil" [(ngModel)]="newVotingCard.activeUntil">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <!-- Poll Options -->

@@ -6,7 +6,8 @@ export interface VotingCardUpsert {
   title: string;
   description: string;
   type: VotingType;
-  imageSrc: string;
   options: OptionVotePair[];
   votes: Vote[];
+  createdUserId: string | null;
+  activeUntil: Date;
 }

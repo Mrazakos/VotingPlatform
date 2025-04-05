@@ -12,6 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { VotingCardUpsert } from './model/voting-card-upser';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-create-poll',
@@ -26,6 +29,8 @@ import { VotingCardUpsert } from './model/voting-card-upser';
     MatCardModule,
     MatIconModule,
     RouterModule,
+    MatDatepickerModule,
+    MatSelectModule,
   ],
   styles: ['src/styles'],
   styleUrls: ['./create-poll.component.css'],
@@ -41,16 +46,18 @@ export class CreatePollComponent {
   newVotingCard: VotingCardUpsert = {
     title: '',
     description: '',
-    imageSrc: '',
     votes: [],
     type: VotingType.poll,
     options: [],
+    createdUserId: '',
+    activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   };
 
-  constructor(private _votingCardService: VotingCardService) {}
+  constructor(private _votingCardService: VotingCardService, private authService: AuthService) {}
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.initializeOptions(this.options);
+    this.newVotingCard.createdUserId = await this.authService.getUserId();
     this.votingCardService
       .addVotingCard(this.newVotingCard)
       .then(() => {
@@ -58,10 +65,11 @@ export class CreatePollComponent {
         this.newVotingCard = {
           title: '',
           description: '',
-          imageSrc: '',
-          options: [],
           votes: [],
-          type: VotingType.default,
+          type: VotingType.poll,
+          options: [],
+          createdUserId: '',
+          activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         };
         this.options = '';
       })

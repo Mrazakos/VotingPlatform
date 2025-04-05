@@ -7,14 +7,16 @@ import { environment } from '../environments/environment';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()), 
-    provideAuth(() => getAuth()), 
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), 
-    provideAnimationsAsync()
-  ]
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideNativeDateAdapter(),
+  ],
 };

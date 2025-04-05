@@ -7,7 +7,9 @@ export interface VotingCard {
   title: string;
   description: string;
   type: VotingType;
-  imageSrc: string;
   options: OptionVotePair[];
   votes: Vote[];
+  createdUserId: string;
+  createdAt: Date;
+  activeUntil: Date;
 }
