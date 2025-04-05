@@ -9,9 +9,12 @@ import {
   deleteDoc,
   docData,
   getDoc,
+  query,
+  where,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
+import { VotingCardUpsert } from '../create-poll/model/voting-card-upser';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +22,20 @@ import { VotingCard } from '../voting-card/model/voting-card';
 export class VotingCardService {
   constructor(private firestore: Firestore) {}
 
-  getVotingCards(): Observable<VotingCard[]> {
-    const votingCardsCollection = collection(this.firestore, 'VotingCards'); // Move inside function
-    return collectionData(votingCardsCollection, { idField: 'id' }) as Observable<VotingCard[]>;
+  getVotingCards(searchQuery: string = ''): Observable<VotingCard[]> {
+    const collectionRef = collection(this.firestore, 'VotingCards');
+
+    if (!searchQuery) {
+      return collectionData(collectionRef, { idField: 'id' }) as Observable<VotingCard[]>;
+    }
+
+    const titleQuery = query(
+      collectionRef,
+      where('title', '>=', searchQuery),
+      where('title', '<=', searchQuery + '\uf8ff')
+    );
+
+    return collectionData(titleQuery, { idField: 'id' }) as Observable<VotingCard[]>;
   }
 
   getVotingCardById(id: string): Observable<VotingCard | null> {
@@ -31,7 +45,7 @@ export class VotingCardService {
     );
   }
 
-  addVotingCard(votingCard: VotingCard) {
+  addVotingCard(votingCard: VotingCardUpsert) {
     const votingCardsCollection = collection(this.firestore, 'VotingCards'); // Move inside function
     return addDoc(votingCardsCollection, votingCard);
   }

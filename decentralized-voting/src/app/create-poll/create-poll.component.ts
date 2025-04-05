@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-
+import { VotingCardUpsert } from './model/voting-card-upser';
 
 @Component({
   selector: 'app-create-poll',
@@ -38,7 +38,7 @@ export class CreatePollComponent {
     this._votingCardService = value;
   }
   options: string = '';
-  newVotingCard: VotingCard = {
+  newVotingCard: VotingCardUpsert = {
     title: '',
     description: '',
     imageSrc: '',
