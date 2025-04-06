@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { VotingCard } from '../voting-card/model/voting-card';
-import { VotingCardService } from '../services/voting-card.service';
-import { VotingType } from '../models/voting-type';
-import { OptionVotePair } from '../models/option-vote-pair';
+import { VotingCardService } from '../../services/voting-card.service';
+import { VotingType, VotingTypeMap, VotingTypeImageSrcMap } from '../../models/voting-type';
+import { OptionVotePair } from '../../models/option-vote-pair';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { VotingCardUpsert } from './model/voting-card-upser';
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { VotingCardCreate } from '../model/voting-card-create';
 
 @Component({
   selector: 'app-create-poll',
@@ -43,7 +43,7 @@ export class CreatePollComponent {
     this._votingCardService = value;
   }
   options: string = '';
-  newVotingCard: VotingCardUpsert = {
+  newVotingCard: VotingCardCreate = {
     title: '',
     description: '',
     votes: [],
@@ -52,6 +52,14 @@ export class CreatePollComponent {
     createdUserId: '',
     activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   };
+  votingTypeImageSrcMap: Record<VotingType, string> = VotingTypeImageSrcMap;
+  votingTypeMap: Record<VotingType, string> = VotingTypeMap;
+  votingTypes: VotingType[] = [
+    VotingType.election,
+    VotingType.survey,
+    VotingType.opinion,
+    VotingType.poll,
+  ];
 
   constructor(private _votingCardService: VotingCardService, private authService: AuthService) {}
 

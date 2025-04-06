@@ -1,9 +1,32 @@
 mat-card{
   width: 100%;
+  height: auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: normal;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
 }
 
 .carousel-title{
-
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 600;
   margin: 10px auto 20px auto;
+}
+.carousel {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0;
+  height: 400px;
 }

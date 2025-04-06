@@ -50,6 +50,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
   background-color: #fef6f9;
   color: #4a154b;
 }

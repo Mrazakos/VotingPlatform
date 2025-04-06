@@ -3,10 +3,10 @@ import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./auth/register/register.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AuthGuard } from "./auth/auth.guard";
-import { CreatePollComponent } from "./create-poll/create-poll.component";
+import { CreatePollComponent } from './upsert-poll/create-poll/create-poll.component';
 import { PollComponent } from './poll/poll.component';
-import { VotingCardComponent } from './voting-card/voting-card.component';
 import { VotingCardsComponent } from './voting-cards/voting-cards.component';
+import { EditPollComponent } from './upsert-poll/edit-poll/edit-poll.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,5 +15,6 @@ export const routes: Routes = [
   { path: 'add-poll', component: CreatePollComponent, canActivate: [AuthGuard] },
   { path: 'poll/:id', component: PollComponent, canActivate: [AuthGuard] },
   { path: 'voting-cards', component: VotingCardsComponent, canActivate: [AuthGuard] },
+  { path: 'edit-poll/:id', component: EditPollComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

@@ -5,3 +5,20 @@ export enum VotingType{
   poll,
   default
 }
+
+export const VotingTypeMap: Record<VotingType, string> = {
+  [VotingType.election]: 'Election',
+  [VotingType.survey]: 'Survey',
+  [VotingType.opinion]: 'Opinion',
+  [VotingType.poll]: 'Poll',
+  [VotingType.default]: 'Default',
+};
+
+export const VotingTypeImageSrcMap: Record<VotingType, string> = {
+  [VotingType.election]: 'election.png',
+  [VotingType.survey]: 'survey.png',
+  [VotingType.opinion]: 'opinion.png',
+  [VotingType.poll]: 'poll.png',
+  [VotingType.default]: 'default.png',
+};
+  

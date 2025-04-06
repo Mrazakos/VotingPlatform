@@ -15,7 +15,7 @@ mat-grid-list {
   display: grid;
   grid-gap: 1rem;
   width: 100%;
-  max-width: 1200px; /* Set a max-width to prevent grid from stretching too much */
+  max-width: 1500px; /* Set a max-width to prevent grid from stretching too much */
   margin: 0 auto; /* Center the grid */
 }
 

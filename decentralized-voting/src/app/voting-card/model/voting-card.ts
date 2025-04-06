@@ -12,4 +12,5 @@ export interface VotingCard {
   createdUserId: string;
   createdAt: Date;
   activeUntil: Date;
+  imageSrc?: string;
 }

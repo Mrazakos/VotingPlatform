@@ -14,7 +14,8 @@ import {
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
-import { VotingCardUpsert } from '../create-poll/model/voting-card-upser';
+import { VotingCardCreate } from '../upsert-poll/model/voting-card-create';
+import { VotingCardEdit } from '../upsert-poll/model/voting-card-edit';
 
 @Injectable({
   providedIn: 'root',
@@ -41,16 +42,29 @@ export class VotingCardService {
   getVotingCardById(id: string): Observable<VotingCard | null> {
     const docRef = doc(this.firestore, 'VotingCards', id);
     return docData(docRef, { idField: 'id' }).pipe(
-      map(data => (data ? (data as VotingCard) : null)) // Return null if no data
+      map(data => {
+        if (!data) return null;
+
+        const rawData = data as any;
+
+        const activeUntil = rawData.activeUntil?.seconds
+          ? new Date(rawData.activeUntil.seconds * 1000)
+          : rawData.activeUntil;
+
+        return {
+          ...rawData,
+          activeUntil,
+        } as VotingCard;
+      })
     );
   }
 
-  addVotingCard(votingCard: VotingCardUpsert) {
+  addVotingCard(votingCard: VotingCardCreate) {
     const votingCardsCollection = collection(this.firestore, 'VotingCards'); // Move inside function
     return addDoc(votingCardsCollection, votingCard);
   }
 
-  updateVotingCard(id: string, votingCard: VotingCard) {
+  updateVotingCard(id: string, votingCard: VotingCardEdit) {
     const votingCardDoc = doc(this.firestore, `VotingCards/${id}`);
     return setDoc(votingCardDoc, votingCard);
   }
