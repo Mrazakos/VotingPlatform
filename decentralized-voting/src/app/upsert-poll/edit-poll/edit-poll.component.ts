@@ -10,7 +10,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { VotingCardService } from '../../services/voting-card.service';
-import { VotingCardEdit } from '../model/voting-card-edit';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { VotingCardUpsert } from '../model/voting-card-upsert';
 
 @Component({
   selector: 'app-edit-poll',
@@ -34,9 +36,11 @@ export class EditPollComponent {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private votingCardService: VotingCardService
+    private votingCardService: VotingCardService,
+    private snackBar: MatSnackBar
   ) {}
   id: string | null = '';
+  card: VotingCardUpsert | null = null;
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -59,11 +63,18 @@ export class EditPollComponent {
           description: card?.description,
           activeUntil: date,
         });
+        this.card = card;
       });
   }
 
   onSubmit() {
-    const editedCard = this.form.value as VotingCardEdit;
-    this.votingCardService.updateVotingCard(this.id!, editedCard);
+    this.card!.title = this.form.value.title;
+    this.card!.description = this.form.value.description;
+    this.card!.activeUntil = this.form.value.activeUntil;
+    this.votingCardService.updateVotingCard(this.id!, this.card!).then(() => {
+      this.snackBar.open('Voting card updated successfully!', 'Close', {
+        duration: 2000,
+      });
+    });
   }
 }

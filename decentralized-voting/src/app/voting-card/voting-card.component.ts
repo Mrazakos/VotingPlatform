@@ -37,7 +37,7 @@ export class VotingCardComponent implements OnInit {
 
   ngOnInit(): void {
     var options = this.votingCard.options;
-    options.sort((a, b) => (a.votes > b.votes ? -1 : 1));
+    options?.sort((a, b) => (a.votes > b.votes ? -1 : 1));
     this.topOptions = options.slice(0, 3);
     this.descBeginning = this.votingCard.description.substring(0, 50) + '...';
     this.votingCard.imageSrc = VotingTypeImageSrcMap[this.votingCard.type] || 'default.png';

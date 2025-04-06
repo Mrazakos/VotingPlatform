@@ -14,7 +14,8 @@ import { RouterModule } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../auth/services/auth.service';
-import { VotingCardCreate } from '../model/voting-card-create';
+import { VotingCardUpsert } from '../model/voting-card-upsert';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-poll',
@@ -43,7 +44,7 @@ export class CreatePollComponent {
     this._votingCardService = value;
   }
   options: string = '';
-  newVotingCard: VotingCardCreate = {
+  newVotingCard: VotingCardUpsert = {
     title: '',
     description: '',
     votes: [],
@@ -51,6 +52,7 @@ export class CreatePollComponent {
     options: [],
     createdUserId: '',
     activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    createdDate: new Date(Date.now()),
   };
   votingTypeImageSrcMap: Record<VotingType, string> = VotingTypeImageSrcMap;
   votingTypeMap: Record<VotingType, string> = VotingTypeMap;
@@ -61,7 +63,11 @@ export class CreatePollComponent {
     VotingType.poll,
   ];
 
-  constructor(private _votingCardService: VotingCardService, private authService: AuthService) {}
+  constructor(
+    private _votingCardService: VotingCardService,
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
 
   async onSubmit(): Promise<void> {
     this.initializeOptions(this.options);
@@ -69,7 +75,9 @@ export class CreatePollComponent {
     this.votingCardService
       .addVotingCard(this.newVotingCard)
       .then(() => {
-        console.log('New voting card created!');
+        this.snackBar.open('Voting card created successfully!', 'Close', {
+          duration: 3000,
+        });
         this.newVotingCard = {
           title: '',
           description: '',
@@ -82,6 +90,9 @@ export class CreatePollComponent {
         this.options = '';
       })
       .catch(error => {
+        this.snackBar.open('Error creating voting card', 'Close', {
+          duration: 5000,
+        });
         console.error('Error creating voting card:', error);
       });
   }

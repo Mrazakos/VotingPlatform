@@ -14,8 +14,7 @@ import {
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
-import { VotingCardCreate } from '../upsert-poll/model/voting-card-create';
-import { VotingCardEdit } from '../upsert-poll/model/voting-card-edit';
+import { VotingCardUpsert } from '../upsert-poll/model/voting-card-upsert';
 
 @Injectable({
   providedIn: 'root',
@@ -59,12 +58,12 @@ export class VotingCardService {
     );
   }
 
-  addVotingCard(votingCard: VotingCardCreate) {
+  addVotingCard(votingCard: VotingCardUpsert) {
     const votingCardsCollection = collection(this.firestore, 'VotingCards'); // Move inside function
     return addDoc(votingCardsCollection, votingCard);
   }
 
-  updateVotingCard(id: string, votingCard: VotingCardEdit) {
+  updateVotingCard(id: string, votingCard: VotingCardUpsert) {
     const votingCardDoc = doc(this.firestore, `VotingCards/${id}`);
     return setDoc(votingCardDoc, votingCard);
   }
