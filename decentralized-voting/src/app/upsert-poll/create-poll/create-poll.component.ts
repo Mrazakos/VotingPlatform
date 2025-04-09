@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VotingCardService } from '../../services/voting-card.service';
-import { VotingType, VotingTypeMap, VotingTypeImageSrcMap } from '../../models/voting-type';
+import { VotingType, VotingTypeMap } from '../../models/voting-type';
 import { OptionVotePair } from '../../models/option-vote-pair';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -54,7 +54,6 @@ export class CreatePollComponent {
     activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     createdDate: new Date(Date.now()),
   };
-  votingTypeImageSrcMap: Record<VotingType, string> = VotingTypeImageSrcMap;
   votingTypeMap: Record<VotingType, string> = VotingTypeMap;
   votingTypes: VotingType[] = [
     VotingType.election,

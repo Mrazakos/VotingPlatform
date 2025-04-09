@@ -2,7 +2,7 @@
   <div class="grid-layout">
     
     <div class="poll-text">
-      <img [src]="votingTypeImageSrcMap[pollData.type]" alt="Voting Image" class="voting-image" />
+      <img [src]="pollData.type | votingTypeImage" alt="Voting Image" class="voting-image" />
       <div class="title">
         <h3>{{ pollData.title }}</h3>
         <div class="text-content">

@@ -8,12 +8,13 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
 import { VotingComponent } from './voting/voting.component';
 import { VotingService } from './service/voting.service';
-import { VotingType, VotingTypeImageSrcMap } from '../models/voting-type';
+import { VotingType } from '../models/voting-type';
 import { MatButtonModule } from '@angular/material/button';
+import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
 
 @Component({
   selector: 'app-poll',
-  imports: [CommonModule, MatCardModule, VotingComponent, MatButtonModule],
+  imports: [CommonModule, MatCardModule, VotingComponent, MatButtonModule, VotingTypeImagePipe],
   templateUrl: './poll.component.html',
   styles: ['src/styles.css'],
   styleUrl: './poll.component.css',
@@ -23,7 +24,6 @@ export class PollComponent {
   pollId!: string;
   pollData$!: Observable<VotingCard | null>;
   userId!: string;
-  votingTypeImageSrcMap: Record<VotingType, string> = VotingTypeImageSrcMap;
 
   isUsersPoll: boolean = false;
 

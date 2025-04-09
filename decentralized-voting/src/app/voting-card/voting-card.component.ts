@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon'; // Sometimes necessary
 import { RouterModule } from '@angular/router';
 import { VotingCard } from './model/voting-card';
 import { OptionVotePair } from '../models/option-vote-pair';
-import { VotingTypeImageSrcMap } from '../models/voting-type';
+import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
 
 @Component({
   selector: 'app-voting-card',
@@ -25,6 +25,7 @@ import { VotingTypeImageSrcMap } from '../models/voting-type';
     MatCardModule,
     MatIconModule,
     RouterModule,
+    VotingTypeImagePipe,
   ],
   templateUrl: './voting-card.component.html',
   styleUrl: './voting-card.component.css',
@@ -40,6 +41,5 @@ export class VotingCardComponent implements OnInit {
     options?.sort((a, b) => (a.votes > b.votes ? -1 : 1));
     this.topOptions = options.slice(0, 3);
     this.descBeginning = this.votingCard.description.substring(0, 50) + '...';
-    this.votingCard.imageSrc = VotingTypeImageSrcMap[this.votingCard.type] || 'default.png';
   }
 }

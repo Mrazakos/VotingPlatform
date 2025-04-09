@@ -1,6 +1,6 @@
 <mat-card class="voting-card">
   <div class="grid-layout">
-    <img [src]="votingCard.imageSrc" alt="Voting Image" class="voting-image" />
+    <img [src]="(votingCard.type | votingTypeImage)" alt="Voting Image" class="voting-image" />
     <div class="text-content">
       <h3>{{ votingCard.title }}</h3>
       <p>{{ descBeginning }}</p>
