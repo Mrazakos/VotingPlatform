@@ -80,14 +80,13 @@
 
 .grid-layout {
   display: grid;
-  grid-template-columns: 5% auto;
+  grid-template-columns: 16% auto;
   align-items: center;
   gap: 10px;
 }
 
 .voting-image {
-  width: 10%;
-  height: 10%;
+  width: 100%;
   object-fit: cover;
   border-radius: 8px;
 }

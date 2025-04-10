@@ -1,5 +1,5 @@
 <mat-grid-list [cols]="gridColumns" rowHeight="4:3" gutterSize="1rem">
-  <mat-grid-tile *ngFor="let votingCard of votingCards">
+  <mat-grid-tile *ngFor="let votingCard of paginatedVotingCards">
     <app-voting-card [votingCard]="votingCard"></app-voting-card>
   </mat-grid-tile>
 </mat-grid-list>

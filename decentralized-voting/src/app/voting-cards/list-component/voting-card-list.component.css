@@ -30,6 +30,25 @@ mat-grid-tile:hover {
   transform: scale(1.05);
 }
 
+@media (max-width: 1440px) {
+  mat-grid-list {
+    grid-template-columns: 1fr; /* Stack the grid items in a single column */
+    grid-gap: 1rem; /* Ensure there's some space between grid items */
+    max-width: 1100px; /* Make sure grid can stretch across the screen */
+  }
+
+  mat-grid-tile {
+    /* Adjust tile size to fit better on smaller screens */
+    padding: 0.5rem;
+  }
+
+  app-voting-card {
+    width: 100%; /* Ensure the card takes full width on mobile */
+    height: auto; /* Adjust the height automatically */
+  }
+}
+
+
 @media (max-width: 768px) {
   mat-grid-list {
     grid-template-columns: 1fr; /* Stack the grid items in a single column */

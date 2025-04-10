@@ -5,8 +5,8 @@ const VotingTypeImageSrcMap: Record<VotingType, string> = {
   [VotingType.election]: 'election.png',
   [VotingType.survey]: 'survey.png',
   [VotingType.opinion]: 'opinion.png',
-  [VotingType.poll]: 'poll.png',
-  [VotingType.default]: 'default.png',
+  [VotingType.poll]: 'poll.jpg',
+  [VotingType.default]: 'default.jpg',
 };
 
 @Pipe({
