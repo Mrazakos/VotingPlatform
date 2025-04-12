@@ -13,29 +13,24 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-    "styles": [
-    "src/styles.css"
-    ],
-    imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatCardModule,
-      MatIconModule, 
-      RouterModule,
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['../auth.component.css']
+  styleUrls: ['../auth.component.css'],
 })
 export class LoginComponent {
   loginForm: UntypedFormGroup;
 
-  constructor(
-    private fb: UntypedFormBuilder,
-    private authService: AuthService) {
+  constructor(private fb: UntypedFormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -43,7 +38,7 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    if (this.loginForm.valid) 
+    if (this.loginForm.valid)
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
   }
 }

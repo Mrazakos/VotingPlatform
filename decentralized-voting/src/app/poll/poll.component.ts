@@ -16,7 +16,6 @@ import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
   selector: 'app-poll',
   imports: [CommonModule, MatCardModule, VotingComponent, MatButtonModule, VotingTypeImagePipe],
   templateUrl: './poll.component.html',
-  styles: ['src/styles.css'],
   styleUrl: './poll.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

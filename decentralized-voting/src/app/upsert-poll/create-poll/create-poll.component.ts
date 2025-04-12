@@ -33,7 +33,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatSelectModule,
   ],
-  styles: ['src/styles'],
   styleUrls: ['./create-poll.component.css'],
 })
 export class CreatePollComponent {

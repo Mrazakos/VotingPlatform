@@ -29,7 +29,6 @@ import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
   ],
   templateUrl: './voting-card.component.html',
   styleUrl: './voting-card.component.css',
-  styles: ['src/styles'],
 })
 export class VotingCardComponent implements OnInit {
   @Input() votingCard!: VotingCard;

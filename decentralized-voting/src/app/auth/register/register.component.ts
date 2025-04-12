@@ -14,23 +14,20 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  "styles": [
-  "src/styles.css"
-  ],
   imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatCardModule,
-      MatIconModule,
-      RouterModule,
-    ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterModule,
+  ],
   styleUrls: ['../auth.component.css'],
   templateUrl: './register.component.html',
-  standalone: true
+  standalone: true,
 })
 export class RegisterComponent {
   registerForm: UntypedFormGroup;
@@ -44,7 +41,10 @@ export class RegisterComponent {
   }
 
   onRegister(): void {
-    if (this.registerForm.valid && this.registerForm.value.password === this.registerForm.value.passwordAgain) {
+    if (
+      this.registerForm.valid &&
+      this.registerForm.value.password === this.registerForm.value.passwordAgain
+    ) {
       this.authService.register(this.registerForm.value.email, this.registerForm.value.password);
     }
   }
