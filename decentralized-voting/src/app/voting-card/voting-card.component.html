@@ -2,8 +2,8 @@
   <div class="grid-layout">
     <img [src]="(votingCard.type | votingTypeImage)" alt="Voting Image" class="voting-image" />
     <div class="text-content">
-      <h3>{{ votingCard.title }}</h3>
-      <p>{{ descBeginning }}</p>
+      <h3 class="voting-title">{{ votingCard.title }}</h3>
+      <p class="voting-description">{{ descBeginning }}</p>
     </div>
   </div>
   <hr class="card-divider" />
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <button mat-raised-button color="primary" [routerLink]="['/poll', votingCard.id]">
+  <button class="vote-button" mat-raised-button color="primary" [routerLink]="['/poll', votingCard.id]">
     Vote Now
   </button>
 </mat-card>

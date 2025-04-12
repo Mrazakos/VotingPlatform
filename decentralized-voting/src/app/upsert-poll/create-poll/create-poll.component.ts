@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { VotingCardService } from '../../services/voting-card.service';
 import { VotingType, VotingTypeMap } from '../../models/voting-type';
 import { OptionVotePair } from '../../models/option-vote-pair';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -65,8 +65,12 @@ export class CreatePollComponent {
   constructor(
     private _votingCardService: VotingCardService,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
+  goBack(): void {
+    this.location.back();
+  }
 
   async onSubmit(): Promise<void> {
     this.initializeOptions(this.options);
@@ -77,16 +81,7 @@ export class CreatePollComponent {
         this.snackBar.open('Voting card created successfully!', 'Close', {
           duration: 3000,
         });
-        this.newVotingCard = {
-          title: '',
-          description: '',
-          votes: [],
-          type: VotingType.poll,
-          options: [],
-          createdUserId: '',
-          activeUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        };
-        this.options = '';
+        this.location.back();
       })
       .catch(error => {
         this.snackBar.open('Error creating voting card', 'Close', {

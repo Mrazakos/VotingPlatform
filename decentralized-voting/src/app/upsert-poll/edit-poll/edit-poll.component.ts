@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { switchMap } from 'rxjs';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,7 +37,8 @@ export class EditPollComponent {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private votingCardService: VotingCardService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
   id: string | null = '';
   card: VotingCardUpsert | null = null;
@@ -65,6 +66,9 @@ export class EditPollComponent {
         });
         this.card = card;
       });
+  }
+  goBack(): void {
+    this.location.back();
   }
 
   onSubmit() {

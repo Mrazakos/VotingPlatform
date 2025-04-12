@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { OptionVotePair } from '../../models/option-vote-pair';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { Auth } from '@angular/fire/auth';
@@ -28,6 +29,7 @@ export class VotingComponent implements OnInit {
   @Input() votes: Vote[] = [];
 
   @Output() addVote: EventEmitter<string> = new EventEmitter<string>();
+  location = inject(Location);
   selectedOption!: string | null;
 
   async ngOnInit() {
@@ -57,5 +59,9 @@ export class VotingComponent implements OnInit {
     const index = this.votes.findIndex(vote => vote.userId === this.userId);
     if (index === -1) return false;
     return true;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

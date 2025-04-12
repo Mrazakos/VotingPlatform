@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VotingCardService } from '../services/voting-card.service';
 import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
 import { VotingComponent } from './voting/voting.component';
 import { VotingService } from './service/voting.service';

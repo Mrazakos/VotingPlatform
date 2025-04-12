@@ -4,79 +4,13 @@
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  width: 500px;
   max-width: 500px;
-  height: auto;  
   margin: 0 auto;
   background: white;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
-
-@media (max-width: 768px) {
-  .voting-card {
-    max-width: 90%;
-    padding: 0.5rem;
-  }
-
-  .vote-options {
-    grid-template-columns: 1fr;
-  }
-
-  .grid-layout {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .voting-image {
-    width: 100%;
-    height: auto;
-  }
-
-  .option-card {
-    padding: 0.4rem;
-  }
-
-  .option-text {
-    font-size: 0.5rem;
-  }
-
-  .vote-count {
-    font-size: 0.3rem;
-  }
-
-  .card-divider {
-    width: 90%;
-  }
-}
-
-@media (max-width: 480px) {
-  .voting-card {
-    max-width: 95%;
-  }
-
-  .grid-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .option-card {
-    padding: 0.3rem;
-  }
-
-  .option-text {
-    font-size: 0.4rem;
-  }
-
-  .vote-count {
-    font-size: 0.2rem;
-  }
-
-  .card-divider {
-    width: 100%;
-  }
-}
-
 
 .grid-layout {
   display: grid;
@@ -93,7 +27,7 @@
 
 .vote-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* Keep 3 columns */
   gap: 0.3rem;
 }
 
@@ -118,9 +52,7 @@
   transform: scale(1.02);
   background-color: #e91e63;
 }
-.option-card:hover .option-text {
-  color: white;
-}
+.option-card:hover .option-text,
 .option-card:hover .vote-count {
   color: white;
 }
@@ -131,15 +63,116 @@
   color: #333;
 }
 
-
 .vote-count {
   font-size: 0.9rem;
   color: #666;
 }
-.card-divider{
+
+.card-divider {
   width: 80%;
   height: 2px;
   background-color: #b512a5;
   margin: 0 auto;
   border-radius: 1px;
 }
+
+/* Responsive font scaling only — keep 3-column layout */
+@media (max-width: 768px) {
+  .voting-card {
+    padding: 0.75rem;
+    max-width: 90%;
+  }
+
+  .option-card {
+    padding: 0.75rem;
+  }
+
+  .option-text {
+    font-size: 0.9rem;
+  }
+
+  .vote-count {
+    font-size: 0.75rem;
+  }
+
+  .card-divider {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .voting-card {
+    max-width: 95%;
+    padding: 0.5rem;
+  }
+
+  .option-card {
+    padding: 0.5rem;
+  }
+
+  .option-text {
+    font-size: 0.75rem;
+  }
+
+  .vote-count {
+    font-size: 0.6rem;
+  }
+
+  .card-divider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .voting-title {
+    font-size: 1.2rem;
+  }
+
+  .voting-description {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .vote-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .voting-card {
+    padding: 0.75rem;
+    margin: 0.5rem auto;
+  }
+
+  .option-card {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .voting-title {
+    font-size: 1rem;
+  }
+
+  .voting-description {
+    font-size: 0.8rem;
+  }
+
+  .vote-button {
+    margin: 0 auto 10px auto;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    width: 150px;
+    height: auto;
+  }
+
+  .voting-card {
+    padding: 0.5rem;
+    margin: 0.25rem auto;
+  }
+
+  .option-card {
+    padding: 0.5rem;
+  }
+}
+

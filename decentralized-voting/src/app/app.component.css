@@ -87,3 +87,12 @@ a:hover {
   justify-content: flex-end;
 }
 
+@media screen and (max-width: 600px) {
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  
+}
+

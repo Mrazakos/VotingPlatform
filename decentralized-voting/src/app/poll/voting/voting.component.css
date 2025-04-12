@@ -48,3 +48,16 @@
   height: 2px;
   transition: width 0.3s ease-in-out;
 }
+
+button{
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .option {
+    flex: 1 1 calc(100% - 10px);
+    min-width: 100%;
+    width: 100%;
+  }
+  
+}

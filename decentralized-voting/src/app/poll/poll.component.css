@@ -16,3 +16,28 @@
   flex-direction: row;
   gap: 2rem;
 }
+
+.voting-image {
+  width: 200px;
+  height: 200px;
+}
+
+@media screen and (max-width: 600px) {
+  .poll-text {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0;
+  }
+  .voting-image {
+    width: 100px;
+    height: 100px;
+  }
+  mat-card {
+    width: 100%;
+  }
+  
+}
