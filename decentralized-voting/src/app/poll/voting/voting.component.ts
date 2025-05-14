@@ -14,10 +14,11 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 import { Auth } from '@angular/fire/auth';
 import { doc, Firestore, getDoc } from 'firebase/firestore';
 import { Vote } from '../../models/vote';
+import { VotingActivePipe } from '../../pipes/voting-active.pipe';
 
 @Component({
   selector: 'app-voting',
-  imports: [CommonModule, MatCard, MatButtonModule],
+  imports: [CommonModule, MatCard, MatButtonModule, VotingActivePipe],
   templateUrl: './voting.component.html',
   styleUrl: './voting.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +26,7 @@ import { Vote } from '../../models/vote';
 export class VotingComponent implements OnInit {
   @Input() options: OptionVotePair[] = [];
   @Input() votingCardId!: string | undefined;
+  @Input() activeUntil!: Date;
   @Input() userId!: string;
   @Input() votes: Vote[] = [];
 

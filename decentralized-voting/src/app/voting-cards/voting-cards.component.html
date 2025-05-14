@@ -1,4 +1,4 @@
-<app-search-component (searchChanged)="searchChanged($event)"></app-search-component>
+<app-search-component (searchChanged)="searchChanged($event)" (onlyActive)="onlyActiveChecked($event)"></app-search-component>
 
 <app-voting-card-list
   [votingCards]="votingCards()">

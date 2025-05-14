@@ -15,6 +15,7 @@ import {
 import { map, Observable } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
 import { VotingCardUpsert } from '../upsert-poll/model/voting-card-upsert';
+import { orderBy } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -26,16 +27,77 @@ export class VotingCardService {
     const collectionRef = collection(this.firestore, 'VotingCards');
 
     if (!searchQuery) {
-      return collectionData(collectionRef, { idField: 'id' }) as Observable<VotingCard[]>;
+      const descendingActive = query(collectionRef, orderBy('activeUntil', 'desc'));
+      return collectionData(descendingActive, { idField: 'id' }).pipe(
+        map((cards: any[]) =>
+          cards.map(card => ({
+            ...card,
+            activeUntil: card.activeUntil?.seconds
+              ? new Date(card.activeUntil.seconds * 1000)
+              : card.activeUntil,
+          }))
+        )
+      ) as Observable<VotingCard[]>;
     }
 
     const titleQuery = query(
       collectionRef,
       where('title', '>=', searchQuery),
-      where('title', '<=', searchQuery + '\uf8ff')
+      where('title', '<=', searchQuery + '\uf8ff'),
+      orderBy('activeUntil', 'desc')
     );
 
-    return collectionData(titleQuery, { idField: 'id' }) as Observable<VotingCard[]>;
+    return collectionData(titleQuery, { idField: 'id' }).pipe(
+      map((cards: any[]) =>
+        cards.map(card => ({
+          ...card,
+          activeUntil: card.activeUntil?.seconds
+            ? new Date(card.activeUntil.seconds * 1000)
+            : card.activeUntil,
+        }))
+      )
+    ) as Observable<VotingCard[]>;
+  }
+
+  getActiveVotingCards(searchQuery: string = ''): Observable<VotingCard[]> {
+    const collectionRef = collection(this.firestore, 'VotingCards');
+
+    if (!searchQuery) {
+      const ascendingActive = query(
+        collectionRef,
+        where('activeUntil', '>=', new Date()),
+        orderBy('activeUntil', 'asc')
+      );
+      return collectionData(ascendingActive, { idField: 'id' }).pipe(
+        map((cards: any[]) =>
+          cards.map(card => ({
+            ...card,
+            activeUntil: card.activeUntil?.seconds
+              ? new Date(card.activeUntil.seconds * 1000)
+              : card.activeUntil,
+          }))
+        )
+      ) as Observable<VotingCard[]>;
+    }
+
+    const titleQuery = query(
+      collectionRef,
+      where('title', '>=', searchQuery),
+      where('title', '<=', searchQuery + '\uf8ff'),
+      where('activeUntil', '>=', new Date()),
+      orderBy('activeUntil', 'asc')
+    );
+
+    return collectionData(titleQuery, { idField: 'id' }).pipe(
+      map((cards: any[]) =>
+        cards.map(card => ({
+          ...card,
+          activeUntil: card.activeUntil?.seconds
+            ? new Date(card.activeUntil.seconds * 1000)
+            : card.activeUntil,
+        }))
+      )
+    ) as Observable<VotingCard[]>;
   }
 
   getVotingCardById(id: string): Observable<VotingCard | null> {

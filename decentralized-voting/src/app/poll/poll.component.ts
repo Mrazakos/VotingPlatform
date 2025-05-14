@@ -11,10 +11,18 @@ import { VotingService } from './service/voting.service';
 import { VotingType } from '../models/voting-type';
 import { MatButtonModule } from '@angular/material/button';
 import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
+import { CommentSectionComponent } from './comments/comment-section/comment-section.component';
 
 @Component({
   selector: 'app-poll',
-  imports: [CommonModule, MatCardModule, VotingComponent, MatButtonModule, VotingTypeImagePipe],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    VotingComponent,
+    MatButtonModule,
+    VotingTypeImagePipe,
+    CommentSectionComponent,
+  ],
   templateUrl: './poll.component.html',
   styleUrl: './poll.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

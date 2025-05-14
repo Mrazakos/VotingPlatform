@@ -1,0 +1,12 @@
+<mat-card>
+  <app-comment-input (commentSubmitted)="addComment($event)"></app-comment-input>
+</mat-card>
+
+<div class="comment-list">
+  <mat-card *ngFor="let comment of comments" class="comment">
+    <p class="comment-content">{{ comment.content }}</p>
+    <p class="comment-meta">
+      Posted by {{ comment.createdUserEmail }} on {{ comment.createdAt | date : 'short' }}
+    </p>
+  </mat-card>
+</div>

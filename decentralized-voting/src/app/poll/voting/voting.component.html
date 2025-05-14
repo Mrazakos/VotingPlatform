@@ -14,19 +14,29 @@
       </div>
     </mat-card>
   </div>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="onSave()"
-    [disabled]="!selectedOption || this.alreadyVoted"
-  >
-    Vote Now
-  </button>
-  <button
-  mat-raised-button
-  color="primary"
-  (click)="goBack()"
->
-  Back
-</button>
+  <div>
+    <p *ngIf="alreadyVoted" class="already-voted-message">
+      You have already voted.
+    </p>
+    <p *ngIf="!(activeUntil | votingActive)" class="voting-closed-message">
+      Voting is closed for this poll.
+    </p>
+    <button *ngIf="!alreadyVoted && (activeUntil | votingActive)"
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="!selectedOption || this.alreadyVoted"
+    >
+      Vote Now
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="goBack()"
+    >
+      Back
+    </button>
+  </div>
+  
+  
 </div>

@@ -1,4 +1,5 @@
-<mat-card *ngIf="(pollData$ | async) as pollData; else noData">
+<ng-container  *ngIf="(pollData$ | async) as pollData; else noData">
+<mat-card>
   <div class="grid-layout">
     
     <div class="poll-text">
@@ -27,13 +28,19 @@
   [options]="pollData.options"
   [votingCardId]="pollData.id"
   [userId]="userId"
+  [activeUntil]="pollData.activeUntil"
   [votes]="pollData.votes"
   (addVote)="vote($event)"
   >
 
   </app-voting>
+
 </mat-card>
 
+<app-comment-section
+   [pollId]="pollData.id">
+ </app-comment-section>
+</ng-container>
 <ng-template #noData>
   <p>No poll data found.</p>
 </ng-template>

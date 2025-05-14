@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { VotingCard } from './model/voting-card';
 import { OptionVotePair } from '../models/option-vote-pair';
 import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
+import { VotingActivePipe } from '../pipes/voting-active.pipe';
 
 @Component({
   selector: 'app-voting-card',
@@ -26,6 +27,7 @@ import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
     MatIconModule,
     RouterModule,
     VotingTypeImagePipe,
+    VotingActivePipe,
   ],
   templateUrl: './voting-card.component.html',
   styleUrl: './voting-card.component.css',

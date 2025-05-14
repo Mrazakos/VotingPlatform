@@ -2,3 +2,6 @@
   <mat-label>Search</mat-label>
   <input matInput [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" />
 </mat-form-field>
+<mat-checkbox [(ngModel)]="onlyActiveChecked" (change)="onCheckboxChange()">
+  Only Show Active Polls
+</mat-checkbox>

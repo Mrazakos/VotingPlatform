@@ -40,4 +40,7 @@ export class AuthService {
   async getUserId(): Promise<string | null> {
     return this.auth.currentUser ? this.auth.currentUser.uid : null;
   }
+  async getUser(): Promise<any> {
+    return this.auth.currentUser ? this.auth.currentUser : null;
+  }
 }

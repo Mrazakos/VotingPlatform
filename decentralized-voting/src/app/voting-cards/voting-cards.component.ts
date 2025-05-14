@@ -29,18 +29,32 @@ export class VotingCardsComponent {
   votingCards = signal<VotingCard[]>([]);
 
   searchQuery = signal<string>('');
-  filteredCards = signal<VotingCard[]>([]);
+  onlyActive = signal<boolean>(false);
+  filteredVotingCards = signal<VotingCard[]>([]);
 
   constructor(private votingCardService: VotingCardService) {
     effect(() => {
       const query = this.searchQuery();
-      this.votingCardService.getVotingCards(query).subscribe(cards => {
-        this.votingCards.set(cards);
-      });
+      const onlyActive = this.onlyActive();
+      console.log('Query:', query);
+      console.log('Only Active:', onlyActive);
+      if (onlyActive) {
+        this.votingCardService.getActiveVotingCards(query).subscribe(votingCards => {
+          this.votingCards.set(votingCards);
+        });
+      } else {
+        this.votingCardService.getVotingCards(query).subscribe(votingCards => {
+          this.votingCards.set(votingCards);
+        });
+      }
     });
   }
 
   searchChanged($event: string) {
     this.searchQuery.set($event);
+  }
+
+  onlyActiveChecked($event: boolean) {
+    this.onlyActive.set($event);
   }
 }

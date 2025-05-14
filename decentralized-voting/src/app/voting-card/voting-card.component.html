@@ -18,6 +18,7 @@
   </div>
 
   <button class="vote-button" mat-raised-button color="primary" [routerLink]="['/poll', votingCard.id]">
-    Vote Now
+    <span *ngIf="votingCard.activeUntil | votingActive">Vote now</span>
+    <span *ngIf="!(votingCard.activeUntil | votingActive)">See results</span>
   </button>
 </mat-card>

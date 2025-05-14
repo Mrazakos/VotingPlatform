@@ -1,0 +1,14 @@
+<mat-card class="comment-input">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Add a comment</mat-label>
+    <textarea matInput [(ngModel)]="comment" rows="3"></textarea>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addComment()"
+    [disabled]="comment.trim() === ''"
+  >
+    Post Comment
+  </button>
+</mat-card>
