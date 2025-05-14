@@ -20,3 +20,5 @@ Welcome to **Decide Together**, an open-source voting system built with **Angula
 | Angular 19  | Firebase Firestore| Angular Material |
 | RxJS        | Firebase Auth     | PrimeNG Carousel |
 | TypeScript  | Firebase Hosting  | Responsive Design|
+
+Projekt: Szavazó Rendszer
