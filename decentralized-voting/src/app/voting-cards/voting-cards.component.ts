@@ -42,7 +42,6 @@ export class VotingCardsComponent {
         order: this.onlyActive() ? 'asc' : 'desc',
       } as VotingCardFilter;
 
-      console.log('Filter:', filter);
       this.votingCardService.getVotingCards(filter).subscribe(votingCards => {
         this.votingCards.set(votingCards);
       });
