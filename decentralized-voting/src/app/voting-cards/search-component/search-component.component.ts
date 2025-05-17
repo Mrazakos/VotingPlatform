@@ -16,12 +16,17 @@ export class SearchComponent {
   @Output() searchChanged = new EventEmitter<string>();
   searchQuery: string = '';
   @Output() onlyActive: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onlyOwn: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   onlyActiveChecked: boolean = false;
+  onlyOwnChecked: boolean = false;
   onSearchChange() {
     this.searchChanged.emit(this.searchQuery);
   }
   onCheckboxChange() {
     this.onlyActive.emit(this.onlyActiveChecked);
+  }
+  onOnlyOwnChange() {
+    this.onlyOwn.emit(this.onlyOwnChecked);
   }
 }

@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../auth/services/auth.service';
 import { VotingCardComponent } from '../voting-card/voting-card.component';
 import { VotingCard } from '../voting-card/model/voting-card';
-import { VotingCardService } from '../services/voting-card.service';
+import { VotingCardFilter, VotingCardService } from '../services/voting-card.service';
 import { Observable } from 'rxjs';
 import { CarouselModule } from 'primeng/carousel'; // Import CarouselModule
 import { CommonModule } from '@angular/common'; // Import CommonModule
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   constructor(private votingCardService: VotingCardService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.votingCards$ = this.votingCardService.getVotingCards();
+    this.votingCards$ = this.votingCardService.getVotingCards({ top: 5 } as VotingCardFilter);
     this.getNumVisibleCards();
   }
 

@@ -8,67 +8,108 @@ import {
   setDoc,
   deleteDoc,
   docData,
-  getDoc,
   query,
   where,
+  QueryConstraint,
+  limit,
 } from '@angular/fire/firestore';
-import { map, Observable } from 'rxjs';
+import { map, Observable, from } from 'rxjs';
 import { VotingCard } from '../voting-card/model/voting-card';
 import { VotingCardUpsert } from '../upsert-poll/model/voting-card-upsert';
 import { orderBy } from 'firebase/firestore';
+import { AuthService } from '../auth/services/auth.service';
+import { switchMap } from 'rxjs/operators';
+
+export interface VotingCardFilter {
+  searchQuery?: string;
+  onlyActive?: boolean;
+  onlyOwn?: boolean;
+  top?: number;
+  order?: 'asc' | 'desc';
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class VotingCardService {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  getVotingCards(searchQuery: string = ''): Observable<VotingCard[]> {
-    const collectionRef = collection(this.firestore, 'VotingCards');
+  getVotingCards(filter: VotingCardFilter = {}): Observable<VotingCard[]> {
+    if (filter.onlyOwn) {
+      return from(this.authService.getUserId()).pipe(
+        switchMap(userId => {
+          const collectionRef = collection(this.firestore, 'VotingCards');
+          const constraints: QueryConstraint[] = [];
 
-    if (!searchQuery) {
-      const descendingActive = query(collectionRef, orderBy('activeUntil', 'desc'));
-      return collectionData(descendingActive, { idField: 'id' }).pipe(
-        map((cards: any[]) =>
-          cards.map(card => ({
-            ...card,
-            activeUntil: card.activeUntil?.seconds
-              ? new Date(card.activeUntil.seconds * 1000)
-              : card.activeUntil,
-          }))
-        )
-      ) as Observable<VotingCard[]>;
-    }
+          // Only cards created by a specific user
+          if (userId) {
+            constraints.push(where('createdUserId', '==', userId));
+          }
 
-    const titleQuery = query(
-      collectionRef,
-      where('title', '>=', searchQuery),
-      where('title', '<=', searchQuery + '\uf8ff'),
-      orderBy('activeUntil', 'desc')
-    );
+          // Search by title
+          if (filter.searchQuery) {
+            constraints.push(
+              where('title', '>=', filter.searchQuery),
+              where('title', '<=', filter.searchQuery + '\uf8ff')
+            );
+          }
 
-    return collectionData(titleQuery, { idField: 'id' }).pipe(
-      map((cards: any[]) =>
-        cards.map(card => ({
-          ...card,
-          activeUntil: card.activeUntil?.seconds
-            ? new Date(card.activeUntil.seconds * 1000)
-            : card.activeUntil,
-        }))
-      )
-    ) as Observable<VotingCard[]>;
-  }
+          // Only active cards
+          if (filter.onlyActive) {
+            constraints.push(where('activeUntil', '>=', new Date()));
+          }
 
-  getActiveVotingCards(searchQuery: string = ''): Observable<VotingCard[]> {
-    const collectionRef = collection(this.firestore, 'VotingCards');
+          // Order by activeUntil
+          constraints.push(orderBy('activeUntil', filter.order || 'desc'));
 
-    if (!searchQuery) {
-      const ascendingActive = query(
-        collectionRef,
-        where('activeUntil', '>=', new Date()),
-        orderBy('activeUntil', 'asc')
+          // Limit results if top is set
+          if (filter.top && filter.top > 0) {
+            constraints.push(limit(filter.top));
+          }
+
+          const q = query(collectionRef, ...constraints);
+
+          return collectionData(q, { idField: 'id' }).pipe(
+            map((cards: any[]) =>
+              cards.map(card => ({
+                ...card,
+                activeUntil: card.activeUntil?.seconds
+                  ? new Date(card.activeUntil.seconds * 1000)
+                  : card.activeUntil,
+              }))
+            )
+          ) as Observable<VotingCard[]>;
+        })
       );
-      return collectionData(ascendingActive, { idField: 'id' }).pipe(
+    } else {
+      // No need to wait for userId
+      const collectionRef = collection(this.firestore, 'VotingCards');
+      const constraints: QueryConstraint[] = [];
+
+      // Search by title
+      if (filter.searchQuery) {
+        constraints.push(
+          where('title', '>=', filter.searchQuery),
+          where('title', '<=', filter.searchQuery + '\uf8ff')
+        );
+      }
+
+      // Only active cards
+      if (filter.onlyActive) {
+        constraints.push(where('activeUntil', '>=', new Date()));
+      }
+
+      // Order by activeUntil
+      constraints.push(orderBy('activeUntil', filter.order || 'desc'));
+
+      // Limit results if top is set
+      if (filter.top && filter.top > 0) {
+        constraints.push(limit(filter.top));
+      }
+
+      const q = query(collectionRef, ...constraints);
+
+      return collectionData(q, { idField: 'id' }).pipe(
         map((cards: any[]) =>
           cards.map(card => ({
             ...card,
@@ -79,25 +120,6 @@ export class VotingCardService {
         )
       ) as Observable<VotingCard[]>;
     }
-
-    const titleQuery = query(
-      collectionRef,
-      where('title', '>=', searchQuery),
-      where('title', '<=', searchQuery + '\uf8ff'),
-      where('activeUntil', '>=', new Date()),
-      orderBy('activeUntil', 'asc')
-    );
-
-    return collectionData(titleQuery, { idField: 'id' }).pipe(
-      map((cards: any[]) =>
-        cards.map(card => ({
-          ...card,
-          activeUntil: card.activeUntil?.seconds
-            ? new Date(card.activeUntil.seconds * 1000)
-            : card.activeUntil,
-        }))
-      )
-    ) as Observable<VotingCard[]>;
   }
 
   getVotingCardById(id: string): Observable<VotingCard | null> {

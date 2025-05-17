@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
 import { VotingCard } from '../voting-card/model/voting-card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { VotingCardService } from '../services/voting-card.service';
+import { VotingCardFilter, VotingCardService } from '../services/voting-card.service';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -30,23 +30,22 @@ export class VotingCardsComponent {
 
   searchQuery = signal<string>('');
   onlyActive = signal<boolean>(false);
+  onlyOwn = signal<boolean>(false);
   filteredVotingCards = signal<VotingCard[]>([]);
 
   constructor(private votingCardService: VotingCardService) {
     effect(() => {
-      const query = this.searchQuery();
-      const onlyActive = this.onlyActive();
-      console.log('Query:', query);
-      console.log('Only Active:', onlyActive);
-      if (onlyActive) {
-        this.votingCardService.getActiveVotingCards(query).subscribe(votingCards => {
-          this.votingCards.set(votingCards);
-        });
-      } else {
-        this.votingCardService.getVotingCards(query).subscribe(votingCards => {
-          this.votingCards.set(votingCards);
-        });
-      }
+      const filter = {
+        searchQuery: this.searchQuery(),
+        onlyActive: this.onlyActive(),
+        onlyOwn: this.onlyOwn(),
+        order: this.onlyActive() ? 'asc' : 'desc',
+      } as VotingCardFilter;
+
+      console.log('Filter:', filter);
+      this.votingCardService.getVotingCards(filter).subscribe(votingCards => {
+        this.votingCards.set(votingCards);
+      });
     });
   }
 
@@ -56,5 +55,8 @@ export class VotingCardsComponent {
 
   onlyActiveChecked($event: boolean) {
     this.onlyActive.set($event);
+  }
+  onlyOwnChecked($event: boolean) {
+    this.onlyOwn.set($event);
   }
 }
