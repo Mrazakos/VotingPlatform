@@ -18,7 +18,7 @@ export class CommentSectionComponent {
   constructor(private commentService: CommentService, private auth: AuthService) {}
 
   @Input() pollId!: string;
-  comments: Comment[] = [];
+  @Input() comments: Comment[] = [];
 
   addComment(content: string) {
     this.auth
@@ -41,11 +41,5 @@ export class CommentSectionComponent {
       .catch(error => {
         console.error('Error fetching user:', error);
       }); // Added catch block to handle errors
-  }
-
-  ngOnInit() {
-    this.commentService.getComments(this.pollId).subscribe(comments => {
-      this.comments = comments;
-    });
   }
 }

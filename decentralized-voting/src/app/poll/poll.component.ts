@@ -12,6 +12,8 @@ import { VotingType } from '../models/voting-type';
 import { MatButtonModule } from '@angular/material/button';
 import { VotingTypeImagePipe } from '../pipes/voting-type-image.pipe';
 import { CommentSectionComponent } from './comments/comment-section/comment-section.component';
+import { CommentService } from './comments/service/comment.service';
+import { Comment } from './comments/model/comment';
 
 @Component({
   selector: 'app-poll',
@@ -33,13 +35,15 @@ export class PollComponent {
   userId!: string;
 
   isUsersPoll: boolean = false;
+  comments$: Observable<Comment[]> = new Observable<Comment[]>();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private votingCardService: VotingCardService,
     private authService: AuthService,
-    private votingService: VotingService
+    private votingService: VotingService,
+    private commentService: CommentService
   ) {}
 
   ngOnInit() {
@@ -47,6 +51,7 @@ export class PollComponent {
       this.pollId = params.get('id')!;
       if (this.pollId) {
         this.pollData$ = this.votingCardService.getVotingCardById(this.pollId);
+        this.comments$ = this.commentService.getComments(this.pollId);
       }
       this.getUserData();
     });

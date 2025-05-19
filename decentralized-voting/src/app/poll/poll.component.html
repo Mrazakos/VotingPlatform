@@ -38,7 +38,8 @@
 </mat-card>
 
 <app-comment-section
-   [pollId]="pollData.id">
+   [pollId]="pollData.id"
+   [comments]="(comments$ | async) ?? []">
  </app-comment-section>
 </ng-container>
 <ng-template #noData>
